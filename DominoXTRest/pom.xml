@@ -28,5 +28,10 @@
 			<artifactId>xtrest</artifactId>
 			<version>1.0.0</version>
 		</dependency>
+		<dependency>
+			<groupId>DominoArena</groupId>
+			<artifactId>DominoArena</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>	
 	</dependencies>
 </project>

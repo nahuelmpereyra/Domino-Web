@@ -6,9 +6,9 @@ import org.uqbar.xtrest.api.XTRest
 class App {
 	
 	def static void main(String[] args) {
-		
+	
 
-        XTRest.startInstance(9000, new RestfulServer())
+        XTRest.startInstance(9000, new RestfulServer)
     }
 	
 }
