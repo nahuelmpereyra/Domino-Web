@@ -69,8 +69,7 @@ class RestfulServer {
    	@Post("/pedidos")
     def createPedido(@Body String body) {
     	
-        response.contentType = ContentType.APPLICATION_JSON 
-          
+        response.contentType = ContentType.APPLICATION_JSON    
         try{
         	val pedidoJson = body.fromJson(PedidoJSON)                   	
  			val cliente = repoClientes.searchById(pedidoJson.idCliente)
@@ -81,8 +80,15 @@ class RestfulServer {
         catch (UserException excpeption){
         	return badRequest("asd")
         }
-        
-
+    }
+    
+    
+    @Get("/pedidos/:id")
+    def getPedidosById() {
+    	response.contentType = ContentType.APPLICATION_JSON      		
+    	val repoPedidos = ApplicationContext.instance.getSingleton(typeof(Pedido)) as RepoPedidos        
+    	val pedido = repoPedidos.searchById(Integer.valueOf(id))
+        return ok(pedido.toJson)  
     }
     
 
