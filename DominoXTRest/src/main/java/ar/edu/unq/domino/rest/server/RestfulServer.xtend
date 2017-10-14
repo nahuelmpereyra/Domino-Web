@@ -19,6 +19,8 @@ import org.uqbar.xtrest.api.annotation.Get
 import org.uqbar.xtrest.api.annotation.Post
 import org.uqbar.xtrest.http.ContentType
 import org.uqbar.xtrest.json.JSONUtils
+import org.uqbar.commons.model.exceptions.UserException
+
 
 /**
  * Servidor RESTful implementado con XtRest.
@@ -67,22 +69,23 @@ class RestfulServer {
    	@Post("/pedidos")
     def createPedido(@Body String body) {
     	
-        response.contentType = ContentType.APPLICATION_JSON
+        response.contentType = ContentType.APPLICATION_JSON 
+          
+        try{
+        	val pedidoJson = body.fromJson(PedidoJSON)                   	
+ 			val cliente = repoClientes.searchById(pedidoJson.idCliente)
+       		val pedido = pedidoJson.asPedido(cliente)
+        	repoPedidos.create(pedido)
+        	return ok()
+        }     
+        catch (UserException excpeption){
+        	return badRequest("asd")
+        }
         
-        val pedidoJson = body.fromJson(PedidoJSON)            	
-        pedidoJson.idCliente
- 
- 		val cliente = repoClientes.allInstances.findFirst[c | c.id == cliente.id] //buscar con idCliente en el repo. Ver como lo hizo Hurrell
- //	estos metodos podrian ir al metodo asPedido del PedidoJSON
-
-
-        val pedido = pedidoJson.asPedido(cliente)
-        
-        repoPedidos.create(pedido)
-        
-        
-        return ok()
 
     }
+    
+
+
     
 }
