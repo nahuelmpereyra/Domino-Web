@@ -91,7 +91,13 @@ class RestfulServer {
         return ok(pedido.toJson)  
     }
     
-
+	@Get("/pedidos/estados")
+	def getPedidoByState(String estado) {
+		response.contentType = ContentType.APPLICATION_JSON
+		val repoPedidos = ApplicationContext.instance.getSingleton(typeof(Pedido)) as RepoPedidos        
+		val res = repoPedidos.buscarPorEstado(estado)
+		return ok(res.toJson)
+	}
 
     
 }
