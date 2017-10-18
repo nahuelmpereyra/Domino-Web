@@ -73,7 +73,8 @@ class RestfulServer {
         try{
         	val pedidoJson = body.fromJson(PedidoJSON)                   	
  			val cliente = repoClientes.searchById(pedidoJson.idCliente)
-       		val pedido = pedidoJson.asPedido(cliente)
+ 			val formaRetiro = pedidoJson.formaRetiro.asRetiro
+       		val pedido = pedidoJson.asPedido(cliente, pedidoJson.aclaraciones, formaRetiro)
         	repoPedidos.create(pedido)
         	return ok()
         }     
@@ -81,6 +82,7 @@ class RestfulServer {
         	return badRequest("asd")
         }
     }
+    
     
     
     @Get("/pedidos/:id")
