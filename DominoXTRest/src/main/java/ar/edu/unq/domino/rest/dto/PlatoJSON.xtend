@@ -34,17 +34,17 @@ class PlatoJSON {
 		plato.ingredientesExtras = ingredientesExtras.asIngredienteExtra
 	}
 	
-	def getTamanios() {
+	def tamanios() {
 		val repoTamanio = ApplicationContext.instance.getSingleton(typeof(TamanioPromo)) as RepoTamanios
 		repoTamanio.allInstances
 	}
 	
-	def getPromos() {
+	def promos() {
 		val repoPromos = ApplicationContext.instance.getSingleton(typeof(Promocion)) as RepoPromociones
 		repoPromos.allInstances
 	}
 	
-	def getDistribuciones() {
+	def distribuciones() {
 		val repoDistribuciones = ApplicationContext.instance.getSingleton(typeof(DistribucionPizza)) as RepoDistribuciones
 		repoDistribuciones.allInstances
 	}

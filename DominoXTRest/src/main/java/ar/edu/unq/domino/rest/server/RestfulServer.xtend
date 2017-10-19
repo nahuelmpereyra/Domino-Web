@@ -69,14 +69,14 @@ class RestfulServer {
    	@Post("/pedidos")
     def createPedido(@Body String body) {
     	
-        response.contentType = ContentType.APPLICATION_JSON    
+        response.contentType = ContentType.APPLICATION_JSON
         try{
         	val pedidoJson = body.fromJson(PedidoJSON)                   	
  			val cliente = repoClientes.searchById(pedidoJson.idCliente)
  			val formaRetiro = pedidoJson.formaRetiro.asRetiro
        		val pedido = pedidoJson.asPedido(cliente, pedidoJson.aclaraciones, formaRetiro)
         	repoPedidos.create(pedido)
-        	return ok()
+        	return ok(pedido.toJson)
         }     
         catch (UserException excpeption){
         	return badRequest("asd")

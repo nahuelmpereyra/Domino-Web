@@ -9,7 +9,7 @@ import ar.edu.unq.domino.formasDeEnvio.RetiroLocal
 @Accessors
 class RetiroJSON {
 	
-	FormaDeRetiro tipo
+	String tipo
 	String direccion
 	
 	new(){}
@@ -17,10 +17,10 @@ class RetiroJSON {
 	
 	def asRetiro() {
 		var FormaDeRetiro res
-		if(tipo.esDelivery){
+		if(tipo == "Delivery"){
 			res = new Delivery(direccion)
 		}
-		if(tipo.esRetiro){
+		if(tipo == "Retiro"){
 			res = new RetiroLocal
 		}		
 		res

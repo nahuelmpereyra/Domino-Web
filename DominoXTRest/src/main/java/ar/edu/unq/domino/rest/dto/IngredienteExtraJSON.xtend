@@ -14,15 +14,6 @@ class IngredienteExtraJSON {
 	Integer id_ingrediente
 	Integer id_distribucion
 	
-	new(Ingrediente ingrediente, DistribucionPizza distribucion) {
-		this.id_ingrediente = ingrediente.id
-		this.id_distribucion = distribucion.id
-	}
-	
-	new() {
-		
-	}
-	
 	def asIngredienteExtra() {
 		var res = new IngredientesExtras
 		var ing = ingredientes.findFirst[i | i.id.intValue == id_ingrediente.intValue]
@@ -32,12 +23,12 @@ class IngredienteExtraJSON {
 		res
 		}
 	
-	def private getIngredientes() {
+	def private ingredientes() {
 		val repo = ApplicationContext.instance.getSingleton(typeof(Ingrediente)) as RepoIngredientes
 		repo.allInstances
 	}
 	
-	def private getDistribuciones() {
+	def private distribuciones() {
 		val repo = ApplicationContext.instance.getSingleton(typeof(DistribucionPizza)) as RepoDistribuciones
 		repo.allInstances
 	}
