@@ -141,6 +141,20 @@ class RestfulServer {
     	return ok(pedido.estado.nombre.toJson)	
 	}
 	
+	@Put("/pedidos/:idPedido")
+	
+	// PROVISORIO
+	
+	def editarUnPedido(@Body String body){
+		response.contentType = ContentType.APPLICATION_JSON
+		val estadoJSON = body.fromJson(EstadoJSON)
+		val repoPedidos = ApplicationContext.instance.getSingleton(typeof(Pedido)) as RepoPedidos
+		val pedido = repoPedidos.searchById(Integer.valueOf(idPedido))
+		val estado = estadoJSON.asEstado
+		pedido.setEstado(estado)       
+		return ok(pedido.toJson)
+	}
+	
 
     @Get("/usuarios/:id")
     def getUsuariosById() {

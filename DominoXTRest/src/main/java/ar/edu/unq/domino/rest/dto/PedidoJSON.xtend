@@ -25,6 +25,7 @@ class PedidoJSON {
 		platos.forEach[p|pedido.agregarPlato(p.asPlato)]
 	}
 	
+	
 				
 
 	
