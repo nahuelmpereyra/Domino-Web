@@ -20,7 +20,7 @@ import org.uqbar.xtrest.api.annotation.Post
 import org.uqbar.xtrest.http.ContentType
 import org.uqbar.xtrest.json.JSONUtils
 import org.uqbar.commons.model.exceptions.UserException
-
+import ar.edu.unq.domino.rest.dto.EstadoJSON
 
 /**
  * Servidor RESTful implementado con XtRest.
@@ -95,7 +95,7 @@ class RestfulServer {
     
 	@Get("/pedidos")
 	/*
-	 * Busca por estado del pedido o por idCliente
+	 * Busca por estado del	 pedido o por idCliente
 	 */
 	def getPedidoByState(String estado, String idCliente) {
 		response.contentType = ContentType.APPLICATION_JSON
@@ -103,12 +103,12 @@ class RestfulServer {
 		val res = repoPedidos.buscar(estado, idCliente)
 		return ok(res.toJson)
 	}
-	
-	@Post("/pedidos/:id")	
+	 
+	@Post("/pedidos/:idPedido")	
 	def siguienteEstadoPedido(String id, String estado){	
 		response.contentType = ContentType.APPLICATION_JSON      		
     	val repoPedidos = ApplicationContext.instance.getSingleton(typeof(Pedido)) as RepoPedidos        
-    	val pedido = repoPedidos.searchById(Integer.valueOf(id))
+    	val pedido = repoPedidos.searchById(Integer.valueOf(idPedido))
     	if (estado == "siguiente"){	
 	    	pedido.siguienteEstado
     	}
@@ -118,12 +118,27 @@ class RestfulServer {
 		return ok(pedido.toJson)     
 	}
 	
-    
+   
 
-
-
-
-
+	@Post("/pedidos/:idPedido/estado")
+	def cambiarEstadoPedido(@Body String body) {
+		response.contentType = ContentType.APPLICATION_JSON
+			val estadoJSON = body.fromJson(EstadoJSON)
+			val pedido = repoPedidos.searchById(Integer.valueOf(idPedido))
+			val estado = estadoJSON.asEstado
+			pedido.estado = estado
+			return ok(pedido.toJson)
+			
+	}
+	
+	@Get("/pedidos/:idPedido/estado")
+	def getEstadoDeUnPedido() {
+		response.contentType = ContentType.APPLICATION_JSON
+		val repoPedidos = ApplicationContext.instance.getSingleton(typeof(Pedido)) as RepoPedidos        
+    	val pedido = repoPedidos.searchById(Integer.valueOf(idPedido))
+    	return ok(pedido.estado.nombre.toJson)	
+	}
+	
 
     
 }
