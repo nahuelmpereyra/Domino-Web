@@ -140,5 +140,11 @@ class RestfulServer {
 	}
 	
 
-    
+    @Get("/usuarios/:id")
+    def getUsuariosById() {
+    	response.contentType = ContentType.APPLICATION_JSON      		
+    	val repoClientes = ApplicationContext.instance.getSingleton(typeof(Cliente)) as RepoClientes
+    	val cliente = repoClientes.searchById(Integer.valueOf(id))
+        return ok(cliente.toJson)  
+    }
 }
