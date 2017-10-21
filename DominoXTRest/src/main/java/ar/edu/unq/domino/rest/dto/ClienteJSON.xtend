@@ -1,7 +1,9 @@
 package ar.edu.unq.domino.rest.dto
 
+import ar.edu.unq.domino.repo.RepoClientes
 import ar.edu.unq.domino.sistema.Cliente
 import org.eclipse.xtend.lib.annotations.Accessors
+import org.uqbar.commons.applicationContext.ApplicationContext
 
 @Accessors
 class ClienteJSON {
@@ -34,5 +36,19 @@ class ClienteJSON {
 			cliente.direccion = this.direccion
 		}
 	}
+	
+	def validarSesion() {
+		val usuario = clientes.findFirst[cliente | cliente.nick == usuario]
+		
+		if(usuario !== null && usuario.password.equals(password)){
+		}else{
+			throw new RuntimeException("Usuario o contraseña inválidos")
+		}
+	}
+
+	def clientes() {
+		val repoClientes = ApplicationContext.instance.getSingleton(typeof(Cliente)) as RepoClientes
+		repoClientes.allInstances
+	} 	
 
 }

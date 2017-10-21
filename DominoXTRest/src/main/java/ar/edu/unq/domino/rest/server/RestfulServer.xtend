@@ -177,6 +177,15 @@ class RestfulServer {
     	
     }
     
+    @Post("/login")
+    def login(@Body String body){
+    	
+    	response.contentType = ContentType.APPLICATION_JSON
+    	val usuarioJson = body.fromJson(ClienteJSON)
+    	usuarioJson.validarSesion
+    	return ok()
+    }
+    
     
     
     
