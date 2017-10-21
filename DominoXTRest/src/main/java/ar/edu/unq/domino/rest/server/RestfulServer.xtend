@@ -21,6 +21,8 @@ import org.uqbar.xtrest.http.ContentType
 import org.uqbar.xtrest.json.JSONUtils
 import org.uqbar.commons.model.exceptions.UserException
 import ar.edu.unq.domino.rest.dto.EstadoJSON
+import org.uqbar.xtrest.api.annotation.Put
+import ar.edu.unq.domino.rest.dto.ClienteJSON
 
 /**
  * Servidor RESTful implementado con XtRest.
@@ -147,4 +149,20 @@ class RestfulServer {
     	val cliente = repoClientes.searchById(Integer.valueOf(id))
         return ok(cliente.toJson)  
     }
+    
+    @Put("/usuarios/:id")
+    def editarUnUsuario(@Body String body){
+    	response.contentType = ContentType.APPLICATION_JSON  
+    	val clienteJSON = body.fromJson(ClienteJSON)    		
+    	val repoClientes = ApplicationContext.instance.getSingleton(typeof(Cliente)) as RepoClientes
+    	val cliente = repoClientes.searchById(Integer.valueOf(id))
+    	clienteJSON.actualizar(cliente)
+    	return ok(cliente.toJson)
+    }
+    
+    
+    
+    
+    
+    
 }
