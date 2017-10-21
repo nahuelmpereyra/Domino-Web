@@ -160,6 +160,23 @@ class RestfulServer {
     	return ok(cliente.toJson)
     }
     
+    @Post("/usuarios")
+    def crearUsuario(@Body String body){
+    	    	
+        response.contentType = ContentType.APPLICATION_JSON
+        try{
+        	val usuarioJson = body.fromJson(ClienteJSON)                   	
+       		val cliente = usuarioJson.asCliente()
+	    	val repoClientes = ApplicationContext.instance.getSingleton(typeof(Cliente)) as RepoClientes
+	    	repoClientes.create(cliente)
+        	return ok(cliente.toJson)
+        }     
+        catch (UserException excpeption){
+        	return badRequest("asd")
+        }
+    	
+    }
+    
     
     
     
