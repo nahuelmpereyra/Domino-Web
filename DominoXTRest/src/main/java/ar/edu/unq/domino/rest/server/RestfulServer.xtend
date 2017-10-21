@@ -94,13 +94,27 @@ class RestfulServer {
     }
     
 	@Get("/pedidos")
-	def getPedidoByState(String estado) {
+	/*
+	 * Busca por estado del pedido o por idCliente
+	 */
+	def getPedidoByState(String estado, String idCliente) {
 		response.contentType = ContentType.APPLICATION_JSON
 		val repoPedidos = ApplicationContext.instance.getSingleton(typeof(Pedido)) as RepoPedidos        
-		val res = repoPedidos.buscarPorEstado(estado)
+		val res = repoPedidos.buscar(estado, idCliente)
 		return ok(res.toJson)
 	}
 	
+	@Post("/pedidos/:id")
+	
+	def cambiarEstadoPedido(String id, String estado){
+		
+		response.contentType = ContentType.APPLICATION_JSON      		
+    	val repoPedidos = ApplicationContext.instance.getSingleton(typeof(Pedido)) as RepoPedidos        
+    	val pedido = repoPedidos.searchById(Integer.valueOf(id)).
+
+		return ok(pedido.toJson)
+         
+	}
 	
 
     
