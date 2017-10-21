@@ -27,182 +27,186 @@ import ar.edu.unq.domino.rest.dto.ClienteJSON
 /**
  * Servidor RESTful implementado con XtRest.
  */
- @Controller
-	
+@Controller
 class RestfulServer {
-    extension JSONUtils = new JSONUtils
+	extension JSONUtils = new JSONUtils
 
 	DominoBootstrap domino = new DominoBootstrap
 	RepoPedidos repoPedidos = ApplicationContext.instance.getSingleton(typeof(Pedido)) as RepoPedidos
 	RepoClientes repoClientes = ApplicationContext.instance.getSingleton(typeof(Cliente)) as RepoClientes
-	
+
 	new() {
 
 		this.domino.run
-		
+
 	}
 
-    @Get("/promos")
-    def getPromos() {
-    	val repoPromociones = ApplicationContext.instance.getSingleton(typeof(Promocion)) as RepoPromociones        
-    	response.contentType = ContentType.APPLICATION_JSON        
-        return ok(repoPromociones.promociones.toJson)
-    }
-    
+	@Get("/promos")
+	def getPromos() {
+		val repoPromociones = ApplicationContext.instance.getSingleton(typeof(Promocion)) as RepoPromociones
+		response.contentType = ContentType.APPLICATION_JSON
+		return ok(repoPromociones.promociones.toJson)
+	}
 
-    @Get("/tamanios")
-    def getTamanios() {
-    	val repoTamanios = ApplicationContext.instance.getSingleton(typeof(TamanioPromo)) as RepoTamanios        
-    	response.contentType = ContentType.APPLICATION_JSON        
-        return ok(repoTamanios.tamanios.toJson)
-    }
+	@Get("/tamanios")
+	def getTamanios() {
+		val repoTamanios = ApplicationContext.instance.getSingleton(typeof(TamanioPromo)) as RepoTamanios
+		response.contentType = ContentType.APPLICATION_JSON
+		return ok(repoTamanios.tamanios.toJson)
+	}
 
-    
-    @Get("/ingredientes")
-    def getIngredientes() {
-    	val repoIngredientes = ApplicationContext.instance.getSingleton(typeof(Ingrediente)) as RepoIngredientes        
-    	response.contentType = ContentType.APPLICATION_JSON        
-        return ok(repoIngredientes.ingredientes.toJson)
-    }
+	@Get("/ingredientes")
+	def getIngredientes() {
+		val repoIngredientes = ApplicationContext.instance.getSingleton(typeof(Ingrediente)) as RepoIngredientes
+		response.contentType = ContentType.APPLICATION_JSON
+		return ok(repoIngredientes.ingredientes.toJson)
+	}
 
+	@Post("/pedidos")
+	def createPedido(@Body String body) {
 
-   
-   
-   	@Post("/pedidos")
-    def createPedido(@Body String body) {
-    	
-        response.contentType = ContentType.APPLICATION_JSON
-        try{
-        	val pedidoJson = body.fromJson(PedidoJSON)                   	
- 			val cliente = repoClientes.searchById(pedidoJson.idCliente)
- 			val formaRetiro = pedidoJson.formaRetiro.asRetiro
-       		val pedido = pedidoJson.asPedido(cliente, pedidoJson.aclaraciones, formaRetiro)
-        	repoPedidos.create(pedido)
-        	return ok(pedido.toJson)
-        }     
-        catch (UserException excpeption){
-        	return badRequest("asd")
-        }
-    }
-    
-    
-    
-    @Get("/pedidos/:id")
-    def getPedidosById() {
-    	response.contentType = ContentType.APPLICATION_JSON      		
-    	val repoPedidos = ApplicationContext.instance.getSingleton(typeof(Pedido)) as RepoPedidos        
-    	val pedido = repoPedidos.searchById(Integer.valueOf(id))
-        return ok(pedido.toJson)  
-    }
-    
+		response.contentType = ContentType.APPLICATION_JSON
+		try {
+			val pedidoJson = body.fromJson(PedidoJSON)
+			val cliente = repoClientes.searchById(pedidoJson.idCliente)
+			val formaRetiro = pedidoJson.formaRetiro.asRetiro
+			val pedido = pedidoJson.asPedido(cliente, pedidoJson.aclaraciones, formaRetiro)
+			repoPedidos.create(pedido)
+			return ok(pedido.toJson)
+		} catch (UserException exception) {
+			return badRequest((exception.message))
+		}
+	}
+
+	@Get("/pedidos/:id")
+	def getPedidosById() {
+		response.contentType = ContentType.APPLICATION_JSON
+		val repoPedidos = ApplicationContext.instance.getSingleton(typeof(Pedido)) as RepoPedidos
+		val pedido = repoPedidos.searchById(Integer.valueOf(id))
+		return ok(pedido.toJson)
+	}
+
 	@Get("/pedidos")
 	/*
 	 * Busca por estado del	 pedido o por idCliente
 	 */
 	def getPedidoByState(String estado, String idCliente) {
 		response.contentType = ContentType.APPLICATION_JSON
-		val repoPedidos = ApplicationContext.instance.getSingleton(typeof(Pedido)) as RepoPedidos        
+		val repoPedidos = ApplicationContext.instance.getSingleton(typeof(Pedido)) as RepoPedidos
 		val res = repoPedidos.buscar(estado, idCliente)
 		return ok(res.toJson)
 	}
-	 
-	@Post("/pedidos/:idPedido")	
-	def siguienteEstadoPedido(String id, String estado){	
-		response.contentType = ContentType.APPLICATION_JSON      		
-    	val repoPedidos = ApplicationContext.instance.getSingleton(typeof(Pedido)) as RepoPedidos        
-    	val pedido = repoPedidos.searchById(Integer.valueOf(idPedido))
-    	if (estado == "siguiente"){	
-	    	pedido.siguienteEstado
-    	}
-    	if (estado == "anterior"){
-    		pedido.anteriorEstado
-    	}
-		return ok(pedido.toJson)     
+
+	@Post("/pedidos/:idPedido")
+	def siguienteEstadoPedido(String id, String estado) {
+		response.contentType = ContentType.APPLICATION_JSON
+		try {
+			val repoPedidos = ApplicationContext.instance.getSingleton(typeof(Pedido)) as RepoPedidos
+			val pedido = repoPedidos.searchById(Integer.valueOf(idPedido))
+			if (estado == "siguiente") {
+				pedido.siguienteEstado
+			}
+			if (estado == "anterior") {
+				pedido.anteriorEstado
+			}
+			return ok(pedido.toJson)
+		} catch (UserException exception) {
+			return badRequest((exception.message))
+		}
+
 	}
-	
-   
 
 	@Post("/pedidos/:idPedido/estado")
 	def cambiarEstadoPedido(@Body String body) {
 		response.contentType = ContentType.APPLICATION_JSON
+		try {
 			val estadoJSON = body.fromJson(EstadoJSON)
 			val pedido = repoPedidos.searchById(Integer.valueOf(idPedido))
 			val estado = estadoJSON.asEstado
 			pedido.estado = estado
 			return ok(pedido.toJson)
-			
+
+		} catch (UserException exception) {
+			return badRequest((exception.message))
+		}
+
 	}
-	
+
 	@Get("/pedidos/:idPedido/estado")
 	def getEstadoDeUnPedido() {
 		response.contentType = ContentType.APPLICATION_JSON
-		val repoPedidos = ApplicationContext.instance.getSingleton(typeof(Pedido)) as RepoPedidos        
-    	val pedido = repoPedidos.searchById(Integer.valueOf(idPedido))
-    	return ok(pedido.estado.nombre.toJson)	
-	}
-	
-	@Put("/pedidos/:idPedido")
-	
-	// PROVISORIO
-	
-	def editarUnPedido(@Body String body){
-		response.contentType = ContentType.APPLICATION_JSON
-		val estadoJSON = body.fromJson(EstadoJSON)
 		val repoPedidos = ApplicationContext.instance.getSingleton(typeof(Pedido)) as RepoPedidos
 		val pedido = repoPedidos.searchById(Integer.valueOf(idPedido))
-		val estado = estadoJSON.asEstado
-		pedido.setEstado(estado)       
-		return ok(pedido.toJson)
+		return ok(pedido.estado.nombre.toJson)
 	}
-	
 
-    @Get("/usuarios/:id")
-    def getUsuariosById() {
-    	response.contentType = ContentType.APPLICATION_JSON      		
-    	val repoClientes = ApplicationContext.instance.getSingleton(typeof(Cliente)) as RepoClientes
-    	val cliente = repoClientes.searchById(Integer.valueOf(id))
-        return ok(cliente.toJson)  
-    }
-    
-    @Put("/usuarios/:id")
-    def editarUnUsuario(@Body String body){
-    	response.contentType = ContentType.APPLICATION_JSON  
-    	val clienteJSON = body.fromJson(ClienteJSON)    		
-    	val repoClientes = ApplicationContext.instance.getSingleton(typeof(Cliente)) as RepoClientes
-    	val cliente = repoClientes.searchById(Integer.valueOf(id))
-    	clienteJSON.actualizar(cliente)
-    	return ok(cliente.toJson)
-    }
-    
-    @Post("/usuarios")
-    def crearUsuario(@Body String body){
-    	    	
-        response.contentType = ContentType.APPLICATION_JSON
-        try{
-        	val usuarioJson = body.fromJson(ClienteJSON)                   	
-       		val cliente = usuarioJson.asCliente()
-	    	val repoClientes = ApplicationContext.instance.getSingleton(typeof(Cliente)) as RepoClientes
-	    	repoClientes.create(cliente)
-        	return ok(cliente.toJson)
-        }     
-        catch (UserException excpeption){
-        	return badRequest("asd")
-        }
-    	
-    }
-    
-    @Post("/login")
-    def login(@Body String body){
-    	
-    	response.contentType = ContentType.APPLICATION_JSON
-    	val usuarioJson = body.fromJson(ClienteJSON)
-    	usuarioJson.validarSesion
-    	return ok()
-    }
-    
-    
-    
-    
-    
-    
+	@Put("/pedidos/:idPedido")
+	// PROVISORIO
+	def editarUnPedido(@Body String body) {
+		response.contentType = ContentType.APPLICATION_JSON
+		try {
+			val estadoJSON = body.fromJson(EstadoJSON)
+			val repoPedidos = ApplicationContext.instance.getSingleton(typeof(Pedido)) as RepoPedidos
+			val pedido = repoPedidos.searchById(Integer.valueOf(idPedido))
+			val estado = estadoJSON.asEstado
+			pedido.setEstado(estado)
+			return ok(pedido.toJson)
+
+		} catch (UserException exception) {
+			return badRequest((exception.message))
+		}
+	}
+
+	@Get("/usuarios/:id")
+	def getUsuariosById() {
+		response.contentType = ContentType.APPLICATION_JSON
+		val repoClientes = ApplicationContext.instance.getSingleton(typeof(Cliente)) as RepoClientes
+		val cliente = repoClientes.searchById(Integer.valueOf(id))
+		return ok(cliente.toJson)
+	}
+
+	@Put("/usuarios/:id")
+	def editarUnUsuario(@Body String body) {
+		response.contentType = ContentType.APPLICATION_JSON
+		try {
+			val clienteJSON = body.fromJson(ClienteJSON)
+			val repoClientes = ApplicationContext.instance.getSingleton(typeof(Cliente)) as RepoClientes
+			val cliente = repoClientes.searchById(Integer.valueOf(id))
+			clienteJSON.actualizar(cliente)
+			return ok(cliente.toJson)
+
+		} catch (UserException exception) {
+			return badRequest((exception.message))
+		}
+	}
+
+	@Post("/usuarios")
+	def crearUsuario(@Body String body) {
+
+		response.contentType = ContentType.APPLICATION_JSON
+		try {
+			val usuarioJson = body.fromJson(ClienteJSON)
+			val cliente = usuarioJson.asCliente()
+			val repoClientes = ApplicationContext.instance.getSingleton(typeof(Cliente)) as RepoClientes
+			repoClientes.create(cliente)
+			return ok(cliente.toJson)
+		} catch (UserException exception) {
+			return badRequest((exception.message))
+		}
+
+	}
+
+	@Post("/login")
+	def login(@Body String body) {
+
+		response.contentType = ContentType.APPLICATION_JSON
+		try {
+			val usuarioJson = body.fromJson(ClienteJSON)
+			usuarioJson.validarSesion
+			return ok()
+		} catch (UserException exception) {
+			return badRequest((exception.message))
+		}
+	}
+
 }
