@@ -104,18 +104,26 @@ class RestfulServer {
 		return ok(res.toJson)
 	}
 	
-	@Post("/pedidos/:id")
-	
-	def cambiarEstadoPedido(String id, String estado){
-		
+	@Post("/pedidos/:id")	
+	def siguienteEstadoPedido(String id, String estado){	
 		response.contentType = ContentType.APPLICATION_JSON      		
     	val repoPedidos = ApplicationContext.instance.getSingleton(typeof(Pedido)) as RepoPedidos        
-    	val pedido = repoPedidos.searchById(Integer.valueOf(id)).
-
-		return ok(pedido.toJson)
-         
+    	val pedido = repoPedidos.searchById(Integer.valueOf(id))
+    	if (estado == "siguiente"){	
+	    	pedido.siguienteEstado
+    	}
+    	if (estado == "anterior"){
+    		pedido.anteriorEstado
+    	}
+		return ok(pedido.toJson)     
 	}
 	
+    
+
+
+
+
+
 
     
 }
