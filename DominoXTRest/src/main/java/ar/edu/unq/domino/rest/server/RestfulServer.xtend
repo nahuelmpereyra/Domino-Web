@@ -73,7 +73,7 @@ class RestfulServer {
 			val pedido = pedidoJson.asPedido(cliente, pedidoJson.aclaraciones, formaRetiro)
 			repoPedidos.create(pedido)
 			return ok(pedido.toJson)
-		} catch (UserException exception) {
+		} catch (Exception exception) {
 			return badRequest((exception.message))
 		}
 	}
@@ -81,9 +81,13 @@ class RestfulServer {
 	@Get("/pedidos/:id")
 	def getPedidosById() {
 		response.contentType = ContentType.APPLICATION_JSON
+		try{
 		val repoPedidos = ApplicationContext.instance.getSingleton(typeof(Pedido)) as RepoPedidos
 		val pedido = repoPedidos.searchById(Integer.valueOf(id))
-		return ok(pedido.toJson)
+		return ok(pedido.toJson)		
+		} catch (Exception exception) {
+			return notFound(exception.message)
+		}	
 	}
 
 	@Get("/pedidos")
@@ -110,7 +114,7 @@ class RestfulServer {
 				pedido.anteriorEstado
 			}
 			return ok(pedido.toJson)
-		} catch (UserException exception) {
+		} catch (Exception exception) {
 			return badRequest((exception.message))
 		}
 
@@ -126,7 +130,7 @@ class RestfulServer {
 			pedido.estado = estado
 			return ok(pedido.toJson)
 
-		} catch (UserException exception) {
+		} catch (Exception exception) {
 			return badRequest((exception.message))
 		}
 
@@ -152,7 +156,7 @@ class RestfulServer {
 			pedido.setEstado(estado)
 			return ok(pedido.toJson)
 
-		} catch (UserException exception) {
+		} catch (Exception exception) {
 			return badRequest((exception.message))
 		}
 	}
@@ -175,7 +179,7 @@ class RestfulServer {
 			clienteJSON.actualizar(cliente)
 			return ok(cliente.toJson)
 
-		} catch (UserException exception) {
+		} catch (Exception exception) {
 			return badRequest((exception.message))
 		}
 	}
@@ -190,7 +194,7 @@ class RestfulServer {
 			val repoClientes = ApplicationContext.instance.getSingleton(typeof(Cliente)) as RepoClientes
 			repoClientes.create(cliente)
 			return ok(cliente.toJson)
-		} catch (UserException exception) {
+		} catch (Exception exception) {
 			return badRequest((exception.message))
 		}
 
@@ -204,8 +208,8 @@ class RestfulServer {
 			val usuarioJson = body.fromJson(ClienteJSON)
 			usuarioJson.validarSesion
 			return ok()
-		} catch (UserException exception) {
-			return badRequest((exception.message))
+		} catch (Exception exception) {
+			return forbidden((exception.message))
 		}
 	}
 
