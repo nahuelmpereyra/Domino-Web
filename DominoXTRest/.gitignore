@@ -5,3 +5,4 @@
 .settings
 *generated-sources*
 src/main/xtend-gen*
+*node_modules*/

@@ -1,0 +1,47 @@
+<!-- CSS  -->
+<link rel="stylesheet" type="text/css" href="../css/styles.css">
+<div data-ng-controller="crearPedidoCtrl as ctrl">
+
+    <nav class="navbar navbar-default">
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li class="active">
+                    <a href="#">Menu
+                    </a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#">Usuario</a>
+                </li>
+
+            </ul>
+        </div>
+    </nav>
+
+    <div>
+        <h2>Elige tu pizza ideal</h2>
+    </div>
+
+
+    <ul class="nav nav-pills nav-stacked">
+        <li data-ng-repeat="promo in ctrl.promos">
+            <a ui-sref="elegirTamaño({id: promo.id})" class="list-group-item">
+                    <span style="font-size: large"> {{promo.nombre}} </span>
+                    <span class="badge">${{promo.precio}}</span><br>
+                    <span style="font-size: small">Muzzarella y aceitunas</span>               
+            </a>
+        </li>
+        <li>
+            <a href="#" class="list-group-item">
+                <span style="font-size: large">Armá tu pizza</span>
+                <span class="badge">$70</span><br>
+                <span style="font-size: small">Con los ingredientes que más te gusten</span>   
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+
+

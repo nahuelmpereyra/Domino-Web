@@ -1,0 +1,90 @@
+
+body {
+	background: rgb(255, 255, 255) !important;	
+}
+
+.wrapper {	
+    margin: 0 auto;
+    margin-top: 80px;
+    margin-bottom: 80px;
+}
+
+.form-signup {
+  max-width: 380px;
+  padding: 15px 35px;
+  margin: 0 auto;
+	background-color: #fff;
+	border: 2px solid rgb(0, 101, 144);
+	text-align: center
+}
+
+.form-signup-heading,
+.checkbox {
+ margin-bottom: 30px;
+}
+
+.form-signin {
+  max-width: 380px;
+  padding: 15px 35px;
+  margin: 0 auto;
+  background-color: #fff;
+	border: 2px solid rgb(0, 101, 144);  
+	text-align: center
+}
+
+    .form-signin-heading,
+	    .checkbox {
+	     margin-bottom: 30px;
+    	}
+
+	.checkbox {
+	  font-weight: normal;
+	}
+
+	.form-control {
+	  position: relative;
+	  font-size: 16px;
+	  height: auto;
+	  padding: 10px;
+    }
+
+	input[type="text"] {
+	  margin-bottom: 8px;
+	}
+
+	input[type="password"] {
+	  margin-bottom: 8px;
+    }
+
+
+		/* Style the list */
+ul.breadcrumb {
+	padding: 10px 16px;
+	list-style: none;
+	background-color: #eee;
+}
+
+/* Display list items side by side */
+ul.breadcrumb li {
+	display: inline;
+	font-size: 18px;
+}
+
+/* Add a slash symbol (/) before/behind each list item */
+ul.breadcrumb li+li:before {
+	padding: 8px;
+	color: black;
+	content: "/\00a0";
+}
+
+/* Add a color to all links inside the list */
+ul.breadcrumb li a {
+	color: #0275d8;
+	text-decoration: none;
+}
+
+/* Add a color on mouse-over */
+ul.breadcrumb li a:hover {
+	color: #01447e;
+	text-decoration: underline;
+}
