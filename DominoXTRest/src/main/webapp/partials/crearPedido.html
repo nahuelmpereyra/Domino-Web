@@ -6,13 +6,12 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li class="active">
-                    <a href="#">Menu
-                    </a>
+                    <a href="#">Menu</a>
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <a href="#">Usuario</a>
+                    <a href="#">Usuarios</a>
                 </li>
 
             </ul>
@@ -25,11 +24,11 @@
 
 
     <ul class="nav nav-pills nav-stacked">
-        <li data-ng-repeat="promo in ctrl.promos">
-            <a ui-sref="elegirTamaño({id: promo.id})" class="list-group-item">
-                    <span style="font-size: large"> {{promo.nombre}} </span>
-                    <span class="badge">${{promo.precio}}</span><br>
-                    <span style="font-size: small">Muzzarella y aceitunas</span>               
+        <li ng-repeat="promo in ctrl.promos">
+            <a ui-sref="elegirTamanio({id: promo.id})" class="list-group-item">
+                    <span style="font-size: large"> {{promo.nombrePromo}} </span>
+                    <span class="badge">${{promo.precioBase}}</span><br>
+<!--  VER                   <span style="font-size: small"ng-repeat="promo in ctrl.promos.ingredientesBase">{{promo.ingredientesBase.nombre}}</span>                -->
             </a>
         </li>
         <li>

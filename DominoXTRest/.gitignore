@@ -6,3 +6,5 @@
 *generated-sources*
 src/main/xtend-gen*
 *node_modules*/
+npm-debug.log
+/.project

@@ -1,53 +1,38 @@
 <!-- CSS  -->
 <link rel="stylesheet" type="text/css" href="../css/styles.css">
 <div data-ng-controller="elegirTamanioCtrl as ctrl">
-  <nav class="navbar navbar-default">
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav">
-        <li class="active">
-          <a href="#">Menu
-          </a>
-        </li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li>
-          <a href="#">Usuario</a>
-        </li>
+	<nav class="navbar navbar-default">
+		<div class="collapse navbar-collapse"
+			id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				<li class="active"><a href="#">Menu </a></li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="#">Usuario</a></li>
 
-      </ul>
-    </div>
-  </nav>
+			</ul>
+		</div>
+	</nav>
 
-  <div>
-    <ol class="breadcrumb">
-      <li>Tamaño
-      </li>
-    </ol>
-  </div>
+	<div>
+		<ol class="breadcrumb">
+			<li>Tamaño</li>
+		</ol>
+	</div>
 
-  <div class="panel panel-default ng-scope">
-    <!-- Default panel contents -->
-    <div class="panel-heading">
-      <h3>Napolitana</h3>
-    </div>
-    <!-- List group -->
-    <ul class="list-group">
-      <a href="#" class="list-group-item">
-        <span class="badge">$12,5</span>
-        <h4 class="list-group-item-heading">Una porción</h4>
-      </a>
-      <a href="#" class="list-group-item">
-        <span class="badge">$50</span>
-        <h4 class="list-group-item-heading">Chica</h4>
-      </a>
-      <a href="#" class="list-group-item">
-        <span class="badge">$100</span>
-        <h4 class="list-group-item-heading">Grande</h4>
-      </a>
-      <a href="#" class="list-group-item">
-        <span class="badge">$125</span>
-        <h4 class="list-group-item-heading">Familiar</h4>
-      </a>
-    </ul>
-  </div>
+	<div class="panel panel-default ng-scope">
+		<!-- Default panel contents -->
+		<div class="panel-heading">
+			<h3>Napolitana</h3>
+		</div>
+		<!-- List group -->
+		<ul class="list-group">
+			<li ng-repeat="tamanio in ctrl.tamanios">
+			<a href="#" class="list-group-item"> 
+				<span>{{tamanio.nombre}}</span>
+				<span class="badge">{{tamanio.precio}}</span>
+			</a>
+			</li>
+		</ul>
+	</div>
 </div>
