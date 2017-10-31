@@ -1,17 +1,20 @@
-DominoApp.service("usuarioService", function () {
-    
-        this.usuarios = [
-            
-        ];
-    
-        this.getUsuario = function (name) {
-            return this.usuarios.find(function (usuario) {
-                return usuario.usuario == name;
-            })
+DominoApp.service("usuarioService", function ($http) {
+
+	
+	var self = this;
+	
+	var getData = function(response) { return response.data }
+     
+	this.user=null;
+	
+    return {
+        loginUser: function(usuario, cb, errorHandler) 
+        { $http.post("/usuarios", usuario)
+        	.then(getData)
+        	.then(cb)
+        	.catch(errorHandler) 
+	        self.user = usuario
         }
+    }
     
-        this.validarUsuario = function (name, password) {
-            return this.usuarios.some(u => u.usuario == name && u.password == password)
-        }
-    
-    });
+});

@@ -16,21 +16,21 @@
 
 	<div>
 		<ol class="breadcrumb">
-			<li>Tamaño</li>
+			<li>Tamanio</li>
 		</ol>
 	</div>
 
 	<div class="panel panel-default ng-scope">
 		<!-- Default panel contents -->
 		<div class="panel-heading">
-			<h3>Napolitana</h3>
+			<h3>{{ctrl.promo.nombrePromo}}</h3>
 		</div>
 		<!-- List group -->
 		<ul class="list-group">
 			<li ng-repeat="tamanio in ctrl.tamanios">
 			<a href="#" class="list-group-item"> 
 				<span>{{tamanio.nombre}}</span>
-				<span class="badge">{{tamanio.precio}}</span>
+				<span class="badge">${{tamanio.precio * ctrl.promo.precioBase}}</span>
 			</a>
 			</li>
 		</ul>

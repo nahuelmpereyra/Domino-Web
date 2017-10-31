@@ -47,7 +47,18 @@ class RestfulServer {
 		response.contentType = ContentType.APPLICATION_JSON
 		return ok(repoPromociones.promociones.toJson)
 	}
-
+	
+	@Get("/promos/:id")
+	def getPromoById() {
+		response.contentType = ContentType.APPLICATION_JSON
+		try{
+		val repoPromos = ApplicationContext.instance.getSingleton(typeof(Promocion)) as RepoPromociones
+		val promo = repoPromos.searchById(Integer.valueOf(id))
+		return ok(promo.toJson)		
+		} catch (Exception exception) {
+			return notFound(exception.message)
+		}	
+	}
 	@Get("/tamanios")
 	def getTamanios() {
 		val repoTamanios = ApplicationContext.instance.getSingleton(typeof(TamanioPromo)) as RepoTamanios
