@@ -5,19 +5,16 @@ DominoApp.service("UsuarioService", function ($http) {
 	
 	var getData = function(response) { return response.data }
      
-	this.user=null;
+	this.usuario="";
 	
     return { 	
 
-        loginUser: function(usuario, cb, errorHandler) 
-        {
-        	console.log(usuario);
-        	$http.post("/login", usuario)
-        	.then(getData)
-        	.then(cb)
-        	.catch(errorHandler) 
-	        self.user = usuario
-        }
-    }
+    	login: function(user, password, errorHandler) { 
+        this.usuario = { 
+            "usuario": user, 
+            "password": password,
+          }
+        return $http.post("/login", this.usuario).then(user).catch(errorHandler) },
+};
     
 });

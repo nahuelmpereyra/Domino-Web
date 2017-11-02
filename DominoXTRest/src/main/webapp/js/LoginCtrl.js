@@ -1,19 +1,22 @@
-	DominoApp.controller('LoginCtrl', function ($scope, $timeout, $state, UsuarioService) {
+	DominoApp.controller('LoginCtrl', function ($timeout, $state, UsuarioService) {
 
     this.usuario = '';
     this.password = '';
     
-    
+    var self = this;
     
     function errorHandler(error) {
         self.notificarError(error.data);
     }
-
+ 
     this.login = function() {
-    	UsuarioService.loginUser(function(data) {
-    		data.nick = this.usuario;
-    		data.password = this.password
-        }, errorHandler)
+        UsuarioService.login(self.usuario, self.password, self.errorHandler)
+        .then(function(usuario) {
+            $state.go("crearPedido");
+            console.log("Ok");
+            sessionStorage.setItem("Nombre", usuario);
+        })
+        .catch(errorHandler);
     };
     
     // FEEDBACK & ERRORES

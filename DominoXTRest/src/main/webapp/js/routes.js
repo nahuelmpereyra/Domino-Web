@@ -17,6 +17,10 @@ DominoApp.config(function ($stateProvider, $urlRouterProvider) {
       url: "/elegirTamanio/:id",
       templateUrl: "partials/elegirTamanio.html"
      })
+     .state('editarUsuario', {
+      url: "/editarUsuario/",
+      templateUrl: "partials/editarUsuario.html"
+     })
     .state('agregarIngredientes', {
       url: "/agregarIngredientes",
       templateUrl: "partials/agregarIngredientes.html"
