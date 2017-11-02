@@ -217,8 +217,8 @@ class RestfulServer {
 		response.contentType = ContentType.APPLICATION_JSON
 		try {
 			val usuarioJson = body.fromJson(ClienteJSON)
-			usuarioJson.validarSesion
-			return ok()
+			val usuarioValidado = usuarioJson.validarSesion(usuarioJson)
+			return ok(usuarioValidado.toJson)
 		} catch (Exception exception) {
 			return forbidden((exception.message))
 		}

@@ -1,22 +1,18 @@
-DominoApp.controller('LoginCtrl', function ($rootScope,$timeout, $state, usuarioService) {
+	DominoApp.controller('LoginCtrl', function ($scope, $timeout, $state, UsuarioService) {
 
-    this.nombre = '';
+    this.usuario = '';
     this.password = '';
     
-    var transform = function(json) { return new Libro(json) }
+    
     
     function errorHandler(error) {
         self.notificarError(error.data);
     }
-//    this.login = function(){
-//       $state.go("crearPedido");
-//    };
 
     this.login = function() {
-    	console.log(usuarioService.user);
-        usuarioService.loginUser(this.usuarioPotencial, function(data) {
-            self.nombre = usuarioPotencial.nombre
-            self.password = usuarioPotencial.password
+    	UsuarioService.loginUser(function(data) {
+    		data.nick = this.usuario;
+    		data.password = this.password
         }, errorHandler)
     };
     

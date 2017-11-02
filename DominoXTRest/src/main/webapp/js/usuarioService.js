@@ -1,5 +1,5 @@
-DominoApp.service("usuarioService", function ($http) {
-
+DominoApp.service("UsuarioService", function ($http) {
+	
 	
 	var self = this;
 	
@@ -7,9 +7,12 @@ DominoApp.service("usuarioService", function ($http) {
      
 	this.user=null;
 	
-    return {
+    return { 	
+
         loginUser: function(usuario, cb, errorHandler) 
-        { $http.post("/usuarios", usuario)
+        {
+        	console.log(usuario);
+        	$http.post("/login", usuario)
         	.then(getData)
         	.then(cb)
         	.catch(errorHandler) 

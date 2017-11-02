@@ -37,13 +37,16 @@ class ClienteJSON {
 		}
 	}
 	
-	def validarSesion() {
+	def validarSesion(ClienteJSON usuarioJson) {
 		val usuario = clientes.findFirst[cliente | cliente.nick == usuario]
-		
-		if(usuario !== null && usuario.password.equals(password)){
+		if(usuario.nick == usuarioJson.usuario && usuario.password.equals(usuarioJson.password)){
+			return usuario
 		}else{
 			throw new RuntimeException("Usuario o contraseña inválidos")
 		}
+		
+		
+		
 	}
 
 	def clientes() {
