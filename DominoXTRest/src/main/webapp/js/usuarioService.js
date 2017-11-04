@@ -3,18 +3,19 @@ DominoApp.service("UsuarioService", function ($http) {
 	
 	var self = this;
 	
-	var getData = function(response) { return response.data }
-     
 	this.usuario="";
 	
-    return { 	
+	function successHandler(response) {
+		self.usuario = response.data;
+		return self.usuario;
+	}
 
-    	login: function(user, password, errorHandler) { 
-        this.usuario = { 
-            "usuario": user, 
-            "password": password,
-          }
-        return $http.post("/login", this.usuario).then(user).catch(errorHandler) },
-};
+	function errorHandler(response) {
+		console.log("Errorrrr", response.data);
+	}
+	
+    this.login = function(user, password) { 
+        return $http.post("/login", {"usuario": user, "password": password}).then(successHandler);  
+    }
     
 });

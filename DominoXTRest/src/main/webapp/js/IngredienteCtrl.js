@@ -1,25 +1,35 @@
-DominoApp.controller('crearPedidoCtrl', function ($resource, $timeout, Promos, UsuarioService) {
+DominoApp.controller('IngredienteCtrl', function ($resource, $timeout, Ingredientes, UsuarioService, Distribuciones) {
 	'use strict';
     
       var self = this;
 
-      self.promos = [];
-      self.nombreUsuarioLogueado = UsuarioService.usuario.nick;
+      self.ingredientes = [];
+      self.distribuciones = [];
+//      self.nombreUsuarioLogueado = UsuarioService.usuario.nick;
 
       function errorHandler(error) {
           self.notificarError(error.data);
       }
       
-      this.actualizarLista = function() {
-    	  Promos.query()
+      this.actualizarListaIngredientes = function() {
+    	  Ingredientes.query()
           .then(function(data) {
-              self.promos = data;
+              self.ingredientes = data;
           })
           .catch(errorHandler);
           
       };
-      this.actualizarLista();
-      
+      this.actualizarListaIngredientes();
+
+      this.actualizarListaDistribuciones = function() {
+    	  Distribuciones.query()
+          .then(function(data) {
+              self.distribuciones = data;
+          })
+          .catch(errorHandler);
+          
+      };
+      this.actualizarListaDistribuciones();
    // FEEDBACK & ERRORES
       this.msgs = [];
       this.notificarMensaje = function(mensaje) {

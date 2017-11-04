@@ -6,15 +6,15 @@
     var self = this;
     
     function errorHandler(error) {
-        self.notificarError(error.data);
+        console.log(error);
+    	self.notificarError(error.data);
     }
  
     this.login = function() {
-        UsuarioService.login(self.usuario, self.password, self.errorHandler)
+        UsuarioService.login(self.usuario, self.password)
         .then(function(usuario) {
             $state.go("crearPedido");
             console.log("Ok");
-            sessionStorage.setItem("Nombre", usuario);
         })
         .catch(errorHandler);
     };

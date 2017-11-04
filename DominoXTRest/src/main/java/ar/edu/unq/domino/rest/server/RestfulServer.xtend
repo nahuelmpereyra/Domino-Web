@@ -6,10 +6,13 @@ import ar.edu.unq.domino.Pizzas.Promocion
 import ar.edu.unq.domino.TamanioPizzas.TamanioPromo
 import ar.edu.unq.domino.arena.runnable.DominoBootstrap
 import ar.edu.unq.domino.repo.RepoClientes
+import ar.edu.unq.domino.repo.RepoDistribuciones
 import ar.edu.unq.domino.repo.RepoIngredientes
 import ar.edu.unq.domino.repo.RepoPedidos
 import ar.edu.unq.domino.repo.RepoPromociones
 import ar.edu.unq.domino.repo.RepoTamanios
+import ar.edu.unq.domino.rest.dto.ClienteJSON
+import ar.edu.unq.domino.rest.dto.EstadoJSON
 import ar.edu.unq.domino.rest.dto.PedidoJSON
 import ar.edu.unq.domino.sistema.Cliente
 import org.uqbar.commons.applicationContext.ApplicationContext
@@ -17,12 +20,10 @@ import org.uqbar.xtrest.api.annotation.Body
 import org.uqbar.xtrest.api.annotation.Controller
 import org.uqbar.xtrest.api.annotation.Get
 import org.uqbar.xtrest.api.annotation.Post
+import org.uqbar.xtrest.api.annotation.Put
 import org.uqbar.xtrest.http.ContentType
 import org.uqbar.xtrest.json.JSONUtils
-import org.uqbar.commons.model.exceptions.UserException
-import ar.edu.unq.domino.rest.dto.EstadoJSON
-import org.uqbar.xtrest.api.annotation.Put
-import ar.edu.unq.domino.rest.dto.ClienteJSON
+import ar.edu.unq.domino.distribuciones.DistribucionPizza
 
 /**
  * Servidor RESTful implementado con XtRest.
@@ -46,6 +47,13 @@ class RestfulServer {
 		val repoPromociones = ApplicationContext.instance.getSingleton(typeof(Promocion)) as RepoPromociones
 		response.contentType = ContentType.APPLICATION_JSON
 		return ok(repoPromociones.promociones.toJson)
+	}
+	
+	@Get("/distribuciones")
+	def getDistribuciones() {
+		val repoDistribuciones = ApplicationContext.instance.getSingleton(typeof(DistribucionPizza)) as RepoDistribuciones
+		response.contentType = ContentType.APPLICATION_JSON
+		return ok(repoDistribuciones.distribuciones.toJson)
 	}
 	
 	@Get("/promos/:id")
