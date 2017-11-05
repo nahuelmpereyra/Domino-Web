@@ -23,12 +23,6 @@ class ClienteJSON {
 		if (this.nombre !== null) {
 			cliente.nombre = this.nombre
 		}
-		if (this.usuario !== null) {
-			cliente.nick = this.usuario
-		}
-		if (this.password !== null) {
-			cliente.password = this.password
-		}
 		if (this.email !== null) {
 			cliente.email = this.email
 		}

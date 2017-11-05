@@ -1,5 +1,6 @@
-DominoApp.controller('EditarDatosUsuarioCtrl', function ($timeout, $state, PedidoService, UsuarioService) {
-
+DominoApp.controller('EditarDatosUsuarioCtrl', function ($state, PedidoService, UsuarioService) {
+	
+	this.idUsuario = UsuarioService.usuario.id;
     this.nickUsuarioLogueado = UsuarioService.usuario.nick;
     this.nombreUsuarioLogueado = UsuarioService.usuario.nombre;
     this.emailUsuarioLogueado = UsuarioService.usuario.email;
@@ -10,11 +11,10 @@ DominoApp.controller('EditarDatosUsuarioCtrl', function ($timeout, $state, Pedid
         console.log(error);
     }
  
-    this.login = function() {
-        UsuarioService.login(self.usuario, self.password)
+    this.editarDatos = function() {
+        UsuarioService.update(self.idUsuario, self.nombreUsuarioLogueado, self.emailUsuarioLogueado, self.direccionUsuarioLogueado)
         .then(function(usuario) {
             $state.go("crearPedido");
-            self.usuarioLogueado = UsuarioService.usuario.nick;
         })
         .catch(errorHandler);
     };

@@ -2,33 +2,33 @@
 <!-- CSS  -->
 <link rel="stylesheet" type="text/css" href="../css/styles.css">
 
-<div id="fullscreen_bg" class="fullscreen_bg" data-ng-controller="EditarDatosUsuarioCtrl as ctrl">
+<div id="fullscreen_bg" class="fullscreen_bg"
+	data-ng-controller="EditarDatosUsuarioCtrl as ctrl">
 
-		<div class="wrapper">
+	<div class="wrapper">
 		<form class="form-horizontal" role="form">
-			<h2 class="form-signup-heading">{{ctrl.nickUsuarioLogueado}}</h2>
+			<h2 class="form-signup-heading">{{ctrl.idUsuarioLogueado}}</h2>
 			<div class="form-group">
- 				<label class="col-lg-2 control-label">Nombre</label>
- 				 <div class	="col-xs-4">			
-					<input type="text" class="form-control input-sm" name="name" ng-model="ctrl.nombreUsuarioLogueado"/>
+				<label class="col-lg-2 control-label">Nombre</label>
+				<div class="col-xs-4">
+					<input type="text" class="form-control input-sm" name="name" ng-model="ctrl.nombreUsuarioLogueado" required/>
 				</div>
 			</div>
 
 			<div class="form-group">
- 				<label class="col-lg-2 control-label">Email</label>
- 				 <div class	="col-xs-4">			
-					<input type="email" class="form-control" name="mail" ng-model="ctrl.emailUsuarioLogueado"/> 
-				</div>
-			</div>	
-			
-			<div class="form-group">
- 				<label class="col-lg-2 control-label">Dirección</label>
- 				 <div class	="col-xs-4">			
-					<input type="text" class="form-control" name="address" ng-model="ctrl.direccionUsuarioLogueado"/>
+				<label class="col-lg-2 control-label">Email</label>
+				<div class="col-xs-4">
+					<input type="email" class="form-control" name="mail" ng-model="ctrl.emailUsuarioLogueado" required/>
 				</div>
 			</div>
-					
+
+			<div class="form-group">
+				<label class="col-lg-2 control-label">Dirección</label>
+				<div class="col-xs-4">
+					<input type="text" class="form-control" name="address" ng-model="ctrl.direccionUsuarioLogueado" required />
+				</div>
+			</div>
+			<button class="btn btn-md btn-primary" ng-click="ctrl.editarDatos()" type="submit">Actualizar datos</button>
 		</form>
-			<button class="btn btn-lg btn-primary" ng-click="ctrl.editarDatos()" type="submit">Actualizar	datos</button>
-		</div>
+	</div>
 </div>
