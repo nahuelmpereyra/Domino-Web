@@ -1,7 +1,10 @@
-	DominoApp.controller('LoginCtrl', function ($timeout, $state, PedidoService, UsuarioService) {
+DominoApp.controller('RegisterCtrl', function ($timeout, $state, UsuarioService) {
 
+    this.nombre = '';
     this.usuario = '';
     this.password = '';
+    this.email = '';
+	this.direccion = '';
     
     var self = this;
     
@@ -10,11 +13,10 @@
     	self.notificarError(error.data);
     }
  
-    this.login = function() {
-        UsuarioService.login(self.usuario, self.password)
+    this.register = function() {
+        UsuarioService.register(self.nombre, self.usuario, self.password, self.email, self.direccion)
         .then(function(usuario) {
-            $state.go("crearPedido");
-            PedidoService.setCliente(usuario)
+            $state.go("login");
         })
         .catch(errorHandler);
     };

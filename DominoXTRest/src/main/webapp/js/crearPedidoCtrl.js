@@ -1,10 +1,10 @@
-DominoApp.controller('crearPedidoCtrl', function ($resource, $timeout, Promos, UsuarioService) {
+DominoApp.controller('crearPedidoCtrl', function ($resource, $timeout, Promos, PedidoService) {
 	'use strict';
     
       var self = this;
 
       self.promos = [];
-      self.nombreUsuarioLogueado = UsuarioService.usuario.nick;
+      self.nombreUsuarioLogueado = PedidoService.cliente.nick;
 
       function errorHandler(error) {
           self.notificarError(error.data);

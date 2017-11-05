@@ -18,4 +18,8 @@ DominoApp.service("UsuarioService", function ($http) {
         return $http.post("/login", {"usuario": user, "password": password}).then(successHandler);  
     }
     
+    this.register = function(nombre, usuario, password, email, direccion) { 
+        return $http.post("/usuarios", {"nombre": nombre, "usuario": usuario, "password": password, "email": email, "direccion": direccion}).then(successHandler);  
+    }
+    
 });
