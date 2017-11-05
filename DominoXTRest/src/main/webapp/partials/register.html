@@ -7,11 +7,11 @@
         <form class="form-signup">
             <h2 class="form-signup-heading">Registrarse</h2>
             <input type="text" class="form-control" name="usuario" ng-model="ctrl.usuario" placeholder="Usuario" required autofocus/>
-            <input type="password" class="form-control" name="password" ng-model="ctrl.password" placeholder="Contraseña" required/>
-            <input type="password" class="form-control" name="password2" placeholder="Repita contraseña" required />
+            <input type="password" class="form-control" name="password" ng-model="ctrl.password" placeholder="Contraseï¿½a" required/>
+            <input type="password" class="form-control" name="password2" placeholder="Repita contraseï¿½a" required/>
             <input type="text" class="form-control" name="name" ng-model="ctrl.nombre" placeholder="Nombre" required />
-            <input type="text" class="form-control" name="mail" ng-model="ctrl.email" placeholder="Mail" required />
-            <input type="text" class="form-control" name="address" ng-model="ctrl.direccion" placeholder="Dirección" required />
+            <input type="email" class="form-control" name="mail" ng-model="ctrl.email" placeholder="Mail" required />
+            <input type="text" class="form-control" name="address" ng-model="ctrl.direccion" placeholder="Direcciï¿½n" required />
             <button class="btn btn-lg btn-primary btn-block" ng-click="ctrl.register()" type="submit">Registrarse</button>
             <br>
             <a ui-sref="crearPedido">O puedes ingresar como INVITADO</a>

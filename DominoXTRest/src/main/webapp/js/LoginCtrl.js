@@ -3,6 +3,7 @@
     this.usuario = '';
     this.password = '';
     
+    this.usuarioLogueado;
     var self = this;
     
     function errorHandler(error) {
@@ -14,7 +15,7 @@
         UsuarioService.login(self.usuario, self.password)
         .then(function(usuario) {
             $state.go("crearPedido");
-            PedidoService.setCliente(usuario)
+            self.usuarioLogueado = UsuarioService.usuario.nick;
         })
         .catch(errorHandler);
     };

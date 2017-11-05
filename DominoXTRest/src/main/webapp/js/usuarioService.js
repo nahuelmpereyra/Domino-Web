@@ -11,7 +11,7 @@ DominoApp.service("UsuarioService", function ($http) {
 	}
 
 	function errorHandler(response) {
-		console.log("Errorrrr", response.data);
+		console.log("Error", response.data);
 	}
 	
     this.login = function(user, password) { 
