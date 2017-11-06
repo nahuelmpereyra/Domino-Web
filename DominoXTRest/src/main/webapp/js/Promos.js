@@ -13,10 +13,5 @@ DominoApp.service("Promos", function ($http) {
         	.then(getData)}
     }
     
-    
-   // this.getPizza = function (id) {
-    //    return this.getData.find(function (promo) {
-     //     return promo.id == id;
-      // 	 })
-	//	}
+   
 });

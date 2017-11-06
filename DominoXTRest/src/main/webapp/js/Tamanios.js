@@ -5,6 +5,11 @@ DominoApp.service("Tamanios", function ($http) {
     return {
         query: function() { 
             return $http.get("tamanios")
-            .then(getData)}
+            .then(getData)},
+            
+    	queryById: function(id) { 
+    		return $http.get("/tamanios/"+id)
+        .then(getData)}
     }
+ 
 });

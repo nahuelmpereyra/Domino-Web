@@ -5,6 +5,7 @@ import ar.edu.unq.domino.Pizzas.Pedido
 import ar.edu.unq.domino.Pizzas.Promocion
 import ar.edu.unq.domino.TamanioPizzas.TamanioPromo
 import ar.edu.unq.domino.arena.runnable.DominoBootstrap
+import ar.edu.unq.domino.distribuciones.DistribucionPizza
 import ar.edu.unq.domino.repo.RepoClientes
 import ar.edu.unq.domino.repo.RepoDistribuciones
 import ar.edu.unq.domino.repo.RepoIngredientes
@@ -23,7 +24,6 @@ import org.uqbar.xtrest.api.annotation.Post
 import org.uqbar.xtrest.api.annotation.Put
 import org.uqbar.xtrest.http.ContentType
 import org.uqbar.xtrest.json.JSONUtils
-import ar.edu.unq.domino.distribuciones.DistribucionPizza
 
 /**
  * Servidor RESTful implementado con XtRest.
@@ -72,6 +72,16 @@ class RestfulServer {
 		val repoTamanios = ApplicationContext.instance.getSingleton(typeof(TamanioPromo)) as RepoTamanios
 		response.contentType = ContentType.APPLICATION_JSON
 		return ok(repoTamanios.tamanios.toJson)
+	}
+	@Get("/tamanios/:id")
+	def getTamaniosById() {
+		try{
+		val repoTamanios = ApplicationContext.instance.getSingleton(typeof(TamanioPromo)) as RepoTamanios
+		val tamanio = repoTamanios.searchById(Integer.valueOf(id))
+		return ok(tamanio.toJson)		
+		} catch (Exception exception) {
+			return notFound(exception.message)
+		}	
 	}
 
 	@Get("/ingredientes")

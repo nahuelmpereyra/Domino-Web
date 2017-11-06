@@ -1,25 +1,25 @@
-DominoApp.controller('elegirTamanioCtrl', function ($stateParams, Promos, $resource, $timeout, Tamanios) {
+DominoApp.controller('elegirTamanioCtrl', function ($stateParams, Promos, $timeout, Tamanios) {
 	'use strict';
 	
 	
     
     var self = this;
-    self.promo;
+    self.promoSeleccionada;
     self.tamanios = [];
     self.preciosPromoSeleccionada= []
     
     function errorHandler(error) {
         self.notificarError(error.data);
     }
-    this.actualizarPromo = function() {
+    this.obtenerPromoSeleccionada = function() {
     	Promos.queryById($stateParams.id)
     	.then(function(data) {
-    		self.promo = data;
+    		self.promoSeleccionada = data;
     	})
     	.catch(errorHandler);
     	
     };
-    this.actualizarPromo();
+    this.obtenerPromoSeleccionada();
     
     this.actualizarLista = function() {
   	  Tamanios.query()
@@ -31,9 +31,6 @@ DominoApp.controller('elegirTamanioCtrl', function ($stateParams, Promos, $resou
     };
     this.actualizarLista();
     
- //   angular.forEach(self.tamanios, function(tamanio) {
- //   	self.preciosPromoSeleccionada.push(tamanio.precio * self.promo.precioPromo)
- //   });
 
  // FEEDBACK & ERRORES
     this.msgs = [];

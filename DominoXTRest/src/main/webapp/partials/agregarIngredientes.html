@@ -3,79 +3,25 @@
 
 <div data-ng-controller="IngredienteCtrl as ctrl">
 
-	<nav class="navbar navbar-default">
-		<div class="collapse navbar-collapse"
-			id="bs-example-navbar-collapse-1">
-			<ul class="nav navbar-nav">
-				<li class="active"><a href="#">Menu <span class="sr-only"></span>
-				</a></li>
-			</ul>
-			<ul class="nav navbar-nav navbar-right">
-				<li><a href="#">Usuario</a></li>
-
-			</ul>
-		</div>
-	</nav>
-
-
 	<div>
 		<ol class="breadcrumb">
 			<li>Tamaño</li>
 			<li>Ingredientes</li>
 		</ol>
 	</div>
-
-
-
-
 	<div class="container">
-		<h2 style="display: inline-block">
-			Napolitana <small style="display: inline-block">Grande</small>
+		<h2 style="display: inline-block"> {{ctrl.promoSeleccionada}} 
+		<small style="display: inline-block">{{ctrl.tamanioSeleccionado}}</small>
 		</h2>
 		<span class="label label-danger" style="display: inline-block">$105</span>
-		<!-- No sé como hacer para que esto se corra a la derecha -->
 	</div>
 
-
-	<div style="float: left; margin: 20px 50px">
-		<h4>Queso</h4>
-	</div>
-	<div class="container">
-		<div class="form-check" ng-repeat="distribucion in ctrl.distribuciones">
-			<label class="form-check-label"> 
-				<input class="form-check-input" type="radio" onclick=""> {{distribucion.nombre}} 
-			</label>
-		</div>
-	</div>
-	<br>
-
-
-	<div style="float: left; margin: 20px 50px">
-		<h4>Tomate</h4>
-	</div>
-	<div class="container">
-		<div class="form-check">
-			<label class="form-check-label"> <input
-				class="form-check-input" type="radio" onclick=""> Mitad izquierda
-			</label> <br> <label class="form-check-label"> <input
-				class="form-check-input" type="radio" onclick=""> Toda la pizza
-			</label> <br> <label class="form-check-label"> <input
-				class="form-check-input" type="radio" onclick=""> Mitad	derecha
-			</label>
-		</div>
-	</div>
-	<br>
-
-
-
-
-	<div style="float: right; margin-right: 50px">
-		<div class="panel panel-success">
-			<h4 class="panel-heading">Extras</h4>
-			<div class="panel-body" ng-repeat="ingrediente in ctrl.ingredientes">
-				<a class="panel-link">+ {{ingrediente.nombre}} </a>
+	<div style="float: left; margin: 20px 50px"	ng-repeat="ingrediente in ctrl.ingredientesExtrasDisponibles">
+		<h4>{{ingrediente.nombre}}</h4>
+			<div class="form-check"	ng-repeat="distribucion in ctrl.distribuciones">
+				<input	class="form-check-input" name = {{ingrediente.id}}= id= {{distribucion.id}} type="radio" onclick="">{{distribucion.nombre}}
 			</div>
-			<button type="submit" class="btn btn-success">Continuar</button>
-		</div>
-
 	</div>
+	<button type="submit" class="btn btn-success">Continuar</button>
+</div>
+

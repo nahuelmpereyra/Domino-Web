@@ -1,20 +1,21 @@
-DominoApp.controller('IngredienteCtrl', function ($resource, $timeout, Ingredientes, UsuarioService, Distribuciones) {
+DominoApp.controller('IngredienteCtrl', function ($resource, $stateParams, Promos, Tamanios, Ingredientes, Distribuciones) {
 	'use strict';
     
       var self = this;
 
-      self.ingredientes = [];
+      self.ingredientesExtrasDisponibles = [];
       self.distribuciones = [];
-//      self.nombreUsuarioLogueado = UsuarioService.usuario.nick;
+      self.promoSeleccionada;
+      self.tamanioSeleccionado;
 
       function errorHandler(error) {
-          self.notificarError(error.data);
+          console.log(error.data);
       }
       
       this.actualizarListaIngredientes = function() {
     	  Ingredientes.query()
           .then(function(data) {
-              self.ingredientes = data;
+              self.ingredientesExtrasDisponibles = data;
           })
           .catch(errorHandler);
           
@@ -30,23 +31,26 @@ DominoApp.controller('IngredienteCtrl', function ($resource, $timeout, Ingredien
           
       };
       this.actualizarListaDistribuciones();
-   // FEEDBACK & ERRORES
-      this.msgs = [];
-      this.notificarMensaje = function(mensaje) {
-          this.msgs.push(mensaje);
-          this.notificar(this.msgs);
+      
+      this.obtenerPromoSeleccionada = function() {
+      	Promos.queryById($stateParams.idPromo)
+      	.then(function(data) {
+      		self.promoSeleccionada = data;
+      	})
+      	.catch(errorHandler);
+      	
       };
+      this.obtenerPromoSeleccionada();
 
-      this.errors = [];
-      this.notificarError = function(mensaje) {
-          this.errors.push(mensaje);
-          this.notificar(this.errors);
-      };
+      this.obtenerTamanioSeleccionado = function() {
+        	Tamanios.queryById($stateParams.idTamanio)
+        	.then(function(data) {
+        		self.tamanioSeleccionado = data;
+        	})
+        	.catch(errorHandler);
+        	
+        };
+       this.obtenerTamanioSeleccionado();
 
-      this.notificar = function(mensajes) {
-          $timeout(function() {
-              while (mensajes.length > 0) mensajes.pop();
-          }, 3000);
-      }
       
 });
