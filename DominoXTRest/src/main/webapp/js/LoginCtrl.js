@@ -8,7 +8,7 @@
     
     
     function errorHandler(error) {
-        console.log(error);
+        alert(error);
     }
  
     this.login = function() {
@@ -16,10 +16,10 @@
         .then(function(usuario) {
             $state.go("crearPedido");
             self.usuarioLogueado = UsuarioService.usuario.nick;
-            PedidoService.setIdCliente(UsuarioService.usuario.id);
+            PedidoService.setIdCliente(UsuarioService.usuario.id)
         })
         .catch(errorHandler);
-    };
+};
 
 
 
