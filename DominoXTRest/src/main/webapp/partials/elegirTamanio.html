@@ -11,14 +11,14 @@
 	<div class="panel panel-default ng-scope">
 		<!-- Default panel contents -->
 		<div class="panel-heading">
-			<h3>{{ctrl.promo.nombrePromo}}</h3>
+			<h3>{{ctrl.promoSeleccionada.nombrePromo}}</h3>
 		</div>
 		<!-- List group -->
 		<ul class="list-group">
 			<li ng-repeat="tamanio in ctrl.tamanios">
-			<a ui-sref="agregarIngredientes({idTamanio: tamanio.id, idPromo: promo.id})" class="list-group-item">
+			<a ui-sref="agregarIngredientes({idTamanio: tamanio.id, idPromo: promoSeleccionada.id})" class="list-group-item">
 				<span>{{tamanio.nombre}}</span>
-				<span class="badge">${{tamanio.precio * ctrl.promo.precioBase}}</span>
+				<span class="badge">${{tamanio.precio * ctrl.promoSeleccionada.precioBase}}</span>
 			</a>
 			</li>
 		</ul>
