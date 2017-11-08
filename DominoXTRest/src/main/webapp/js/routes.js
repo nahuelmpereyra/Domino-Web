@@ -24,7 +24,11 @@ DominoApp.config(function ($stateProvider, $urlRouterProvider) {
     .state('agregarIngredientes', {
       url: "/agregarIngredientes",
       templateUrl: "partials/agregarIngredientes.html"
-     });
+    })
+  	.state('confirmarPedido', {
+      url: "/confirmarPedido",
+      templateUrl: "partials/confirmarPedido.html"
+  	});
   $urlRouterProvider.otherwise("/login");
 
 });

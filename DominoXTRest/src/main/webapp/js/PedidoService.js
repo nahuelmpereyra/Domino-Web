@@ -22,7 +22,7 @@ DominoApp.service("PedidoService", function($http) {
 	}
 	
 	this.getHistorialCliente = function() {
-		return historial;
+		return this.historial;
 	}
 	
 	this.getIdCliente = function() {

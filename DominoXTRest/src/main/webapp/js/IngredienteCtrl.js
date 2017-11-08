@@ -8,12 +8,8 @@ DominoApp.controller('IngredienteCtrl', function ($state, PedidoService, Promos,
       this.plato = PedidoService.getPlato();
       this.tamanioSeleccionado;
       this.promoSeleccionada;
-      
-      
 
-      function errorHandler(error) {
-          console.log(error);
-      }
+      function errorHandler(error) {console.log(error);}
       
       this.actualizarListaIngredientes = function() {
     	  Ingredientes.query()
@@ -56,8 +52,7 @@ DominoApp.controller('IngredienteCtrl', function ($state, PedidoService, Promos,
       this.obtenerTamanioSeleccionado();
       
       
-      this.confirmarPedido = function () {
-    	    $state.go("confirmarPedido");
-    	  };
+      this.confirmarPedido = function () {$state.go("confirmarPedido");}
+      ;
       
 });
