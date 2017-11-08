@@ -8,7 +8,8 @@
     
     
     function errorHandler(error) {
-        alert(error);
+        console.log(error.data);
+    	alert(error.data)
     }
  
     this.login = function() {

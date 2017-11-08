@@ -1,15 +1,18 @@
-DominoApp.controller('IngredienteCtrl', function ($resource, $stateParams, Promos, Tamanios, Ingredientes, Distribuciones) {
+DominoApp.controller('IngredienteCtrl', function ($state, PedidoService, Promos, Tamanios, Ingredientes, Distribuciones) {
 	'use strict';
     
       var self = this;
 
-      self.ingredientesExtrasDisponibles = [];
-      self.distribuciones = [];
-      self.promoSeleccionada;
-      self.tamanioSeleccionado;
+      this.ingredientesExtrasDisponibles = [];
+      this.distribuciones = [];
+      this.plato = PedidoService.getPlato();
+      this.tamanioSeleccionado;
+      this.promoSeleccionada;
+      
+      
 
       function errorHandler(error) {
-          console.log(error.data);
+          console.log(error);
       }
       
       this.actualizarListaIngredientes = function() {
@@ -33,7 +36,7 @@ DominoApp.controller('IngredienteCtrl', function ($resource, $stateParams, Promo
       this.actualizarListaDistribuciones();
       
       this.obtenerPromoSeleccionada = function() {
-      	Promos.queryById($stateParams.idPromo)
+      	Promos.queryById(this.plato.idPromo)
       	.then(function(data) {
       		self.promoSeleccionada = data;
       	})
@@ -41,16 +44,20 @@ DominoApp.controller('IngredienteCtrl', function ($resource, $stateParams, Promo
       	
       };
       this.obtenerPromoSeleccionada();
-
+      
       this.obtenerTamanioSeleccionado = function() {
-        	Tamanios.queryById($stateParams.idTamanio)
-        	.then(function(data) {
-        		self.tamanioSeleccionado = data;
-        	})
-        	.catch(errorHandler);
-        	
-        };
-       this.obtenerTamanioSeleccionado();
-
+      	Tamanios.queryById(this.plato.idTamanio)
+      	.then(function(data) {
+      		self.tamanioSeleccionado = data;
+      	})
+      	.catch(errorHandler);
+      	
+      };
+      this.obtenerTamanioSeleccionado();
+      
+      
+      this.confirmarPedido = function () {
+    	    $state.go("confirmarPedido");
+    	  };
       
 });

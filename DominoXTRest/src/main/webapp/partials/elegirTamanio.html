@@ -16,7 +16,7 @@
 		<!-- List group -->
 		<ul class="list-group">
 			<li ng-repeat="tamanio in ctrl.tamanios">
-			<a ui-sref="agregarIngredientes({idTamanio: tamanio.id, idPromo: promoSeleccionada.id})" class="list-group-item">
+			<a ui-sref="agregarIngredientes" ng-click = "ctrl.elegirTamanio(tamanio.id)" class="list-group-item">
 				<span>{{tamanio.nombre}}</span>
 				<span class="badge">${{tamanio.precio * ctrl.promoSeleccionada.precioBase}}</span>
 			</a>

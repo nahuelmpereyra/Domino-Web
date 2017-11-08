@@ -25,7 +25,7 @@
 
     <ul class="nav nav-pills nav-stacked">
         <li ng-repeat="promo in ctrl.promos">
-            <a ui-sref="elegirTamanio({id: promo.id})" class="list-group-item">
+            <a ui-sref = "elegirTamanio" ng-click="ctrl.elegirPromo(promo.id)" class="list-group-item">
                     <span style="font-size: large"> {{promo.nombrePromo}} </span>
                     <span class="badge">${{promo.precioBase}}</span><br>
 <!--  VER                   <span style="font-size: small"ng-repeat="promo in ctrl.promos.ingredientesBase">{{promo.ingredientesBase.nombre}}</span>                -->

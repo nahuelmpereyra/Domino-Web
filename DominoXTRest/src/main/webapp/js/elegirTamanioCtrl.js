@@ -1,18 +1,16 @@
-DominoApp.controller('elegirTamanioCtrl', function ($stateParams, Promos, $timeout, Tamanios) {
+DominoApp.controller('elegirTamanioCtrl', function ($stateParams, Promos, $timeout, PedidoService, Tamanios) {
 	'use strict';
-	
-	
-    
+
     var self = this;
+    this.plato = PedidoService.getPlato();
     self.promoSeleccionada;
     self.tamanios = [];
-    self.preciosPromoSeleccionada= []
     
     function errorHandler(error) {
-        self.notificarError(error.data);
+        console.log(error.data);
     }
     this.obtenerPromoSeleccionada = function() {
-    	Promos.queryById($stateParams.id)
+    	Promos.queryById(this.plato.idPromo)
     	.then(function(data) {
     		self.promoSeleccionada = data;
     	})
@@ -31,24 +29,15 @@ DominoApp.controller('elegirTamanioCtrl', function ($stateParams, Promos, $timeo
     };
     this.actualizarLista();
     
-
- // FEEDBACK & ERRORES
-    this.msgs = [];
-    this.notificarMensaje = function(mensaje) {
-        this.msgs.push(mensaje);
-        this.notificar(this.msgs);
+//    this.elegirTamanio = function(idTamanio){
+//    	self.plato.idTamanio= idTamanio;
+//		sessionStorage.setItem('Plato',JSON.stringify(self.plato));
+//		console.log(self.plato)
+//    };
+    
+    this.elegirTamanio = function(idTamanio) {
+    	PedidoService.elegirTamanio(idTamanio);
     };
-
-    this.errors = [];
-    this.notificarError = function(mensaje) {
-        this.errors.push(mensaje);
-        this.notificar(this.errors);
-    };
-
-    this.notificar = function(mensajes) {
-        $timeout(function() {
-            while (mensajes.length > 0) mensajes.pop();
-        }, 3000);
-    }
+      
     
 });

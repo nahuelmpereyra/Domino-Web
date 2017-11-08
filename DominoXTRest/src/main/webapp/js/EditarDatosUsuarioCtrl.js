@@ -6,6 +6,7 @@ DominoApp.controller('EditarDatosUsuarioCtrl', function ($state, PedidoService, 
     this.emailUsuarioLogueado = UsuarioService.usuario.email;
     this.direccionUsuarioLogueado = UsuarioService.usuario.direccion;
     var self = this;
+    this.historial = PedidoService.getHistorialCliente();
     
     function errorHandler(error) {
         console.log(error);

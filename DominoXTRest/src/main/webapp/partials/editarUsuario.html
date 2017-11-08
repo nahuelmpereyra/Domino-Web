@@ -30,5 +30,13 @@
 			</div>
 			<button class="btn btn-md btn-primary" ng-click="ctrl.editarDatos()" type="submit">Actualizar datos</button>
 		</form>
+		
+		   <ul class="nav nav-pills nav-stacked">
+        <li ng-repeat="pedido in ctrl.historial">
+                    <span class="badge">{{ctrl.historial}}</span><br>
+        </li>
+
+    </ul>
+		
 	</div>
 </div>
