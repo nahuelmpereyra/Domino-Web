@@ -51,6 +51,15 @@ DominoApp.controller('IngredienteCtrl', function ($state, PedidoService, Promos,
       };
       this.obtenerTamanioSeleccionado();
       
+      this.agregarIngrediente = function(idIngrediente, idDistribucion) {
+    	  var ingrediente;
+    	  var distribucion;
+    	  
+    	  Ingredientes.queryById(idIngrediente).then
+    	  
+    	  PedidoService.agregarExtras(idIngrediente, idDistribucion)
+		
+	}
       
       this.confirmarPedido = function () {$state.go("confirmarPedido");}
       ;
