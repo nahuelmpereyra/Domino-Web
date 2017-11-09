@@ -15,7 +15,8 @@ DominoApp.controller('EditarDatosUsuarioCtrl', function ($state, PedidoService, 
     this.editarDatos = function() {
         UsuarioService.update(self.idUsuario, self.nombreUsuarioLogueado, self.emailUsuarioLogueado, self.direccionUsuarioLogueado)
         .then(function(usuario) {
-            $state.go("crearPedido");
+        	$state.go("crearPedido");
+        	console.log(this.historial);
         })
         .catch(errorHandler);
     };

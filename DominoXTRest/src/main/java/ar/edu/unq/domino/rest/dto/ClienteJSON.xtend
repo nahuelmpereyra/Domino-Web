@@ -4,6 +4,7 @@ import ar.edu.unq.domino.repo.RepoClientes
 import ar.edu.unq.domino.sistema.Cliente
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.applicationContext.ApplicationContext
+import org.uqbar.commons.model.exceptions.UserException
 
 @Accessors
 class ClienteJSON {
@@ -31,8 +32,9 @@ class ClienteJSON {
 		}
 	}
 	
+		
 	def validarSesion(ClienteJSON usuarioJson) {
-		val usuario = clientes.findFirst[cliente | cliente.nick == usuario]
+		val usuario = clientes.findFirst[cliente | cliente.nick == usuarioJson.usuario]
 		if(usuario.nick == usuarioJson.usuario && usuario.password.equals(usuarioJson.password)){
 			return usuario
 		}else{

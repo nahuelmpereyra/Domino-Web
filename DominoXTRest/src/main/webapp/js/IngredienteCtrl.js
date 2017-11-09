@@ -55,11 +55,18 @@ DominoApp.controller('IngredienteCtrl', function ($state, PedidoService, Promos,
     	  var ingrediente;
     	  var distribucion;
     	  
-    	  Ingredientes.queryById(idIngrediente).then
-    	  
-    	  PedidoService.agregarExtras(idIngrediente, idDistribucion)
-		
-	}
+    	  Ingredientes.queryById(idIngrediente).then(function(data) {
+        		ingrediente = data;
+        		console.log(ingrediente);
+        	}).catch(errorHandler);
+    	  Distribuciones.queryById(idDistribucion).then(function(data) {
+      		distribucion = data;
+      		console.log(distribucion);
+      		}).catch(errorHandler);
+      	
+    	  PedidoService.agregarExtras(ingrediente, distribucion);
+    	  console.log(PedidoService.getPlato())
+      };
       
       this.confirmarPedido = function () {$state.go("confirmarPedido");}
       ;

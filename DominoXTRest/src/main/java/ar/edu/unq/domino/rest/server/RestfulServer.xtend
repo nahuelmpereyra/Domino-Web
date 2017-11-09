@@ -56,6 +56,18 @@ class RestfulServer {
 		return ok(repoDistribuciones.distribuciones.toJson)
 	}
 	
+	@Get("/distribuciones/:id")
+	def getdistribucionById() {
+		response.contentType = ContentType.APPLICATION_JSON
+		try{
+		val repoDistribuciones = ApplicationContext.instance.getSingleton(typeof(DistribucionPizza)) as RepoDistribuciones
+		val distribucion = repoDistribuciones.searchById(Integer.valueOf(id))
+		return ok(distribucion.toJson)		
+		} catch (Exception exception) {
+			return notFound(exception.message)
+		}	
+	}
+	
 	@Get("/promos/:id")
 	def getPromoById() {
 		response.contentType = ContentType.APPLICATION_JSON
@@ -89,6 +101,19 @@ class RestfulServer {
 		val repoIngredientes = ApplicationContext.instance.getSingleton(typeof(Ingrediente)) as RepoIngredientes
 		response.contentType = ContentType.APPLICATION_JSON
 		return ok(repoIngredientes.ingredientes.toJson)
+	}
+	
+	@Get("/ingredientes/:id")
+	def getIngredienteById() {
+		try{
+		val repoIngredientes = ApplicationContext.instance.getSingleton(typeof(Ingrediente)) as RepoIngredientes
+		val ingrediente = repoIngredientes.searchById(Integer.valueOf(id))
+		return ok(ingrediente.toJson)		
+		} 
+		catch (Exception exception) {
+			return notFound(exception.message)
+	}
+	
 	}
 
 	@Post("/pedidos")

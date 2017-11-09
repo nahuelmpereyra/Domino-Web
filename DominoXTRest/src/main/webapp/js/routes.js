@@ -13,6 +13,10 @@ DominoApp.config(function ($stateProvider, $urlRouterProvider) {
       url: "/crearPedido",
       templateUrl: "partials/crearPedido.html"
     })
+    .state('errorLogueo', {
+      url: "/errorLogueo",
+      templateUrl: "partials/errorLogueo.html"
+    })
     .state('elegirTamanio', {
       url: "/elegirTamanio/:id",
       templateUrl: "partials/elegirTamanio.html"

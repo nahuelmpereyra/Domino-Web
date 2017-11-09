@@ -9,8 +9,13 @@ DominoApp.service("PedidoService", function($http) {
 			"idTamanio": null,
 			"extras": []
 	};
+	var ingredienteExtra={
+			"ingrediente": null,
+			"distribucion": null,
+			
+	}
 	
-	this.historial = [];
+	this.historial = null;
 	
 	
 	function successHandler(response) {
@@ -18,7 +23,7 @@ DominoApp.service("PedidoService", function($http) {
 	}
 	
 	function successHandlerHistorial(response) {
-		historial= response.data;
+		this.historial= response.data;
 	}
 	
 	this.getHistorialCliente = function() {
@@ -68,10 +73,24 @@ DominoApp.service("PedidoService", function($http) {
     this.elegirPromo = function(idPromo) {
 		this.plato.idPromo = idPromo;
 	}
+    this.agregarExtras = function(ingrediente, distribucion) {
+    	this.setIngredienteExtra(ingrediente);
+    	this.setDistribucion(distribucion);
+		this.plato.extras.push(ingredienteExtra)
+	}
+    this.setIngredienteExtra = function(ingrediente){
+    	this.ingredienteExtra.ingrediente = ingrediente;
+    }
+    this.setDistribucion = function(distribucion){
+    	this.ingredienteExtra.distribucion = distribucion;
+    }
     this.getPlato = function() {
 		return this.plato;
 	}
     
+    this.getExtras = function() {
+		return this.plato.extras;
+	}
     this.elegirTamanio = function(idTamanio) {
 		this.plato.idTamanio = idTamanio;
 	}

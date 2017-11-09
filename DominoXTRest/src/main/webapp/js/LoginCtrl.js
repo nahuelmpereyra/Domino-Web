@@ -9,7 +9,8 @@
     
     function errorHandler(error) {
         console.log(error.data);
-    	alert(error.data)
+    	alert("Usuario o contraseña invalidos");
+    	$state.go("errorLogueo");
     }
  
     this.login = function() {
