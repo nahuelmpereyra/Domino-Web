@@ -7,21 +7,20 @@ import ar.edu.unq.domino.distribuciones.DistribucionPizza
 import ar.edu.unq.domino.repo.RepoDistribuciones
 import ar.edu.unq.domino.repo.RepoPromociones
 import ar.edu.unq.domino.repo.RepoTamanios
+import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.applicationContext.ApplicationContext
 
 @Accessors
 class PlatoJSON {
 	
-	int id_promo
-	int id_tamanio
-	int id_distribucion
-	IngredienteExtraJSON ingredientesExtras
+	int idPromo
+	int idTamanio
+	List extras
 	
 	def asPlato() {
-		val promo = promos.findFirst[p| p.id == this.id_promo]
-		val tamanio = tamanios.findFirst[t | t.id == this.id_tamanio]
-		val distribucion = distribuciones.findFirst[d | d.id == this.id_distribucion]
+		val promo = promos.findFirst[p| p.id == this.idPromo]
+		val tamanio = tamanios.findFirst[t | t.id == this.idPromo]
 		
 		var plato = new Plato()
 		plato.tamanio = tamanio
@@ -31,7 +30,7 @@ class PlatoJSON {
 	}
 	
 	def ponerIngredientes(Plato plato) {
-		plato.ingredientesExtras = ingredientesExtras.asIngredienteExtra
+//		plato.ingredientesExtras = extras
 	}
 	
 	def tamanios() {

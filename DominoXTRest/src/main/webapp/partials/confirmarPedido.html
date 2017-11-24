@@ -1,7 +1,7 @@
 <!-- CSS  -->
 <link rel="stylesheet" type="text/css" href="../css/styles.css">
 
-<div >
+<div ng-controller = "crearPedidoCtrl as ctrl">
 
 	<div>
 		<ol class="breadcrumb">
@@ -25,5 +25,5 @@
 <!-- 				<input	class="form-check-input" name = {{ingrediente.id}}= id= {{distribucion.id}} type="radio" onclick="">{{distribucion.nombre}} -->
 <!-- 			</div> -->
 <!-- 	</div> -->
-	<button type="submit" class="btn btn-success">Continuar</button>
+	<button type="submit" class="btn btn-success" ng-click = "ctrl.enviarPedido()">Continuar</button>
 </div>

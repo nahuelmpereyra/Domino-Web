@@ -18,7 +18,7 @@
 	<div style="float: left; margin: 20px 50px"	ng-repeat="ingrediente in ctrl.ingredientesExtrasDisponibles">
 		<h4>{{ingrediente.nombre}}</h4>
 			<div class="form-check"	ng-repeat="distribucion in ctrl.distribuciones">
-				<input	class="form-check-input" name = {{ingrediente.id}}= id= {{distribucion.id}} type="radio" ng-click="ctrl.agregarIngrediente(ingrediente.id, distribucion.id)">{{distribucion.nombre}}
+				<input	class="form-check-input" name = {{ingrediente.id}} value="{{distribucion.id}}" type="radio" ng-model="ingrediente.distribucion_id">{{distribucion.nombre}}
 			</div>
 	</div>
 	<br>

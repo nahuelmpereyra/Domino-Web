@@ -9,7 +9,7 @@ DominoApp.service("PedidoService", function($http) {
 			"idTamanio": null,
 			"extras": []
 	};
-	var ingredienteExtra={
+	this.ingredienteExtra={
 			"ingrediente": null,
 			"distribucion": null,
 			
@@ -20,6 +20,7 @@ DominoApp.service("PedidoService", function($http) {
 	
 	function successHandler(response) {
 		return response.data;
+		console.log(response.data)
 	}
 	
 	function successHandlerHistorial(response) {
@@ -39,7 +40,7 @@ DominoApp.service("PedidoService", function($http) {
 	}
 	
 	this.getAclaraciones = function() {
-		return aclaraciones;
+		return this.aclaraciones;
 	}
 
 	this.setAclaraciones = function(_aclaraciones) {
@@ -47,23 +48,23 @@ DominoApp.service("PedidoService", function($http) {
 	}
 
 	this.getPlatos = function() {
-		return platos;
+		return this.platos;
 	}
 
 	this.agregarPlato= function(_plato) {
-		platos.push(_plato);
+		this.platos.push(_plato);
 	}
 	
 	this.getFormaRetiro = function() {
-		return formaRetiro;
+		return this.formaRetiro;
 	}
 
 	this.setFormaRetiro= function(_formaRetiro) {
 		formaRetiro = _formaRetiro;
 	}
 	
-    this.crearPedido = function(_user, _aclaraciones, _platos, _formaRetiro) { 
-        return $http.post("/pedidos", {"idCliente": _user, "aclaraciones": _aclaraciones, "platos": _platos, "formaRetiro": _formaRetiro}).then(successHandler);  
+    this.crearPedido = function() { 
+        return $http.post("/pedidos", {"idCliente": this.getIdCliente(), "aclaraciones": this.getAclaraciones(), "platos": this.getPlatos(), "formaRetiro": this.getFormaRetiro()}).then(successHandler);  
     }
     
     this.getHistorial = function() { 
@@ -76,7 +77,7 @@ DominoApp.service("PedidoService", function($http) {
     this.agregarExtras = function(ingrediente, distribucion) {
     	this.setIngredienteExtra(ingrediente);
     	this.setDistribucion(distribucion);
-		this.plato.extras.push(ingredienteExtra)
+		this.plato.extras.push(this.ingredienteExtra)
 	}
     this.setIngredienteExtra = function(ingrediente){
     	this.ingredienteExtra.ingrediente = ingrediente;

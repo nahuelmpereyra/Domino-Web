@@ -21,6 +21,11 @@ DominoApp.controller('crearPedidoCtrl', function ($resource, $state, $timeout, P
       };
       this.actualizarLista();
       
+      this.enviarPedido= function(){
+    	  
+    	  PedidoService.crearPedido()
+      }
+      
       this.elegirPromo = function(idPromo) {
     	PedidoService.elegirPromo(idPromo);
       };

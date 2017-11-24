@@ -51,24 +51,19 @@ DominoApp.controller('IngredienteCtrl', function ($state, PedidoService, Promos,
       };
       this.obtenerTamanioSeleccionado();
       
-      this.agregarIngrediente = function(idIngrediente, idDistribucion) {
-    	  var ingrediente;
-    	  var distribucion;
-    	  
-    	  Ingredientes.queryById(idIngrediente).then(function(data) {
-        		ingrediente = data;
-        		console.log(ingrediente);
-        	}).catch(errorHandler);
-    	  Distribuciones.queryById(idDistribucion).then(function(data) {
-      		distribucion = data;
-      		console.log(distribucion);
-      		}).catch(errorHandler);
+      this.agregarIngrediente = function(ingrediente, distribucion) {
+
       	
     	  PedidoService.agregarExtras(ingrediente, distribucion);
     	  console.log(PedidoService.getPlato())
       };
       
-      this.confirmarPedido = function () {$state.go("confirmarPedido");}
+      this.confirmarPedido = function () {
+    	  PedidoService.agregarPlato(this.plato);
+    	  $state.go("confirmarPedido");
+    	  
+    	  console.log(PedidoService)
+      }
       ;
       
 });
